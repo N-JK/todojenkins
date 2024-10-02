@@ -57,7 +57,7 @@ pipeline {
 
                     # Bring up the services with the latest image
                     docker-compose up -d
-                    EOF
+EOF
                     '''
                 }
             }
