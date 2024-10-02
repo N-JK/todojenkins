@@ -2,7 +2,7 @@ pipeline {
     agent any
 
      environment {
-        DJANGO_SETTINGS_MODULE = 'todo_list.settings.settings'
+        DJANGO_SETTINGS_MODULE = 'todo_list.settings'
         PYTHONPATH = "/usr/src/app"
     }
 
@@ -12,9 +12,13 @@ pipeline {
                 sh 'docker build -t todoawsimg:latest .'
             }
         }
-        stage('Test') {
+        stage('Run Tests') {
             steps {
-                sh 'docker-compose run web pytest'
+                script {
+                    docker.image("todoawsimg").inside {
+                        sh 'pytest --ds=todo_list.settings' // Ensure it runs with Django settings
+                    }
+                }
             }
         }
         stage('Deploy to EC2') {
