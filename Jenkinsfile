@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'docker build -t todo-app-web:latest .'
+                sh 'docker build -t todoawsimg:latest .'
             }
         }
         stage('Test') {
@@ -23,7 +23,7 @@ pipeline {
                     sh '''
                     ssh -o StrictHostKeyChecking=no ubuntu@54.209.119.85 << EOF
                     docker-compose down
-                    docker pull tododeploytest/todo-app-web:latest
+                    docker pull todoawsimg/todoawsimg:latest
                     docker-compose up -d
                     EOF
                     '''
