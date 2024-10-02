@@ -47,10 +47,16 @@ pipeline {
             steps {
                 sshagent (credentials: ['my-ec2-key']) {
                     sh '''
-                    ssh -o StrictHostKeyChecking=no ubuntu@54.209.119.85 << EOF
-                    docker-compose down
+                    ssh -o StrictHostKeyChecking=no ubuntu@54.209.119.85 << 'EOF'
+                    # Stop the running containers
+                    docker-compose down || true
+
+                    # Pull the latest image from Docker Hub
                     docker pull nibin42/todoawsimg:latest
+
+                    # Bring up the services with the latest image
                     docker-compose up -d
+                    
                     EOF
                     '''
                 }
