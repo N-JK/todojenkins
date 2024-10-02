@@ -69,7 +69,7 @@ EOF
                     sh '''
                     ssh ubuntu@54.209.119.85 << 'EOF'
                     sudo chmod 664 /var/lib/jenkins/workspace/mytodopipeline/nginx/nginx.conf
-                    sudo chown ubuntu:ubuntu /var/lib/jenkins/workspace/mytodopipeline/nginx/nginx.conf
+                    sudo chown jenkins:jenkins /var/lib/jenkins/workspace/mytodopipeline/nginx/nginx.conf
                     sed -i 's/web_green/web_blue/' 
 /var/lib/jenkins/workspace/mytodopipeline/nginx/nginx.conf
                     sudo systemctl restart nginx
