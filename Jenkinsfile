@@ -9,29 +9,40 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'docker build -t todoawsimg:latest .'
-                sh 'docker tag todoawsimg:latest myusername/todoawsimg:latest'
+                sh 'docker build -t todoawsimg:latest .'  // Build Docker image
             }
         }
+
+        stage('Tag Image') {
+            steps {
+                sh 'docker tag todoawsimg:latest nibin42/todoawsimg:latest'  // Tag the image
+            }
+        }
+
         stage('Push to Docker Hub') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'dockerid', variable: 'DOCKERHUB_PASSWORD')]) {
-                        sh 'echo $DOCKERHUB_PASSWORD | docker login -u nibin42 --password-stdin'
-                        sh 'docker push nibin42/todoawsimg:latest'
+                    // Using the Docker access token for authentication
+                    withCredentials([string(credentialsId: 'dockertoken', variable: 'DOCKER_TOKEN')]) {
+                        sh '''
+                        echo "$DOCKER_TOKEN" | docker login -u nibin42 --password-stdin
+                        docker push nibin42/todoawsimg:latest
+                        '''
                     }
                 }
             }
         }
+
         stage('Run Tests') {
             steps {
                 script {
-                    docker.image("nibin42/todoawsimg").inside {
-                        sh 'pytest --ds=todo_list.settings'
+                    docker.image("nibin42/todoawsimg:latest").inside {
+                        sh 'pytest --ds=todo_list.settings'  // Run tests with Django settings
                     }
                 }
             }
         }
+
         stage('Deploy to EC2') {
             steps {
                 sshagent (credentials: ['my-ec2-key']) {
@@ -45,6 +56,7 @@ pipeline {
                 }
             }
         }
+
         stage('Switch Green/Blue') {
             steps {
                 sshagent (credentials: ['my-ec2-key']) {
