@@ -31,14 +31,14 @@ services:
       - webnet
 
   web_green:
-    image: my-app:green
+    image: todoawsimg:green
     ports:
       - "8000:8000"
     networks:
       - webnet
 
   web_blue:
-    image: my-app:blue
+    image: todoawsimg:blue
     ports:
       - "8001:8001"
     networks:
