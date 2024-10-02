@@ -47,7 +47,7 @@ pipeline {
             steps {
                 sshagent (credentials: ['my-ec2-key']) {
                     sh '''
-                    ssh -v -o StrictHostKeyChecking=no ubuntu@54.209.119.85 << 'EOF'
+                    ssh -o StrictHostKeyChecking=no ubuntu@54.209.119.85 << 'EOF'
                     cd /var/lib/jenkins/workspace/mytodopipeline
                     # Stop the running containers
                     docker-compose down || true
