@@ -1,0 +1,23 @@
+{% extends 'base/main.html' %}
+{% block content %}
+
+<div class="header-bar">
+    <a href="{% url 'tasks' %}">&#8592; Back</a>
+</div>
+
+<div class="card-body">
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="button" type="submit" value="Submit">
+    </form>
+</div>
+
+<!-- Display the created date and time if it exists -->
+{% if object and object.created %}
+<div class="created-info">
+    <p>Task created on: {{ object.created|date:"Y-m-d H:i" }}</p>
+</div>
+{% endif %}
+
+{% endblock content %}
