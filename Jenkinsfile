@@ -48,6 +48,7 @@ pipeline {
                 sshagent (credentials: ['my-ec2-key']) {
                     sh '''
                     ssh -o StrictHostKeyChecking=no ubuntu@54.209.119.85 << 'EOF'
+                    cd /var/lib/jenkins/workspace/mytodopipeline
                     # Stop the running containers
                     docker-compose down || true
 
@@ -56,7 +57,7 @@ pipeline {
 
                     # Bring up the services with the latest image
                     docker-compose up -d
-                    
+
                     EOF
                     '''
                 }
