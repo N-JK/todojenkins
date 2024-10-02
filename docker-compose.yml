@@ -33,14 +33,14 @@ services:
   web_green:
     image: nibin42/todoawsimg:latest
     ports:
-      - "8000:8000"
+      - "8001:8000"
     networks:
       - webnet
 
   web_blue:
     image: nibin42/todoawsimg:latest
     ports:
-      - "8001:8001"
+      - "8002:8000"
     networks:
       - webnet
 
