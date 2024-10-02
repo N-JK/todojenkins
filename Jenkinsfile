@@ -68,7 +68,7 @@ pipeline {
             steps {
                 sshagent (credentials: ['my-ec2-key']) {
                     sh '''
-                    ssh ubuntu@54.209.119.85 "sed -i 's/web_green/web_blue/' /path/to/nginx.conf && sudo systemctl restart nginx"
+                    ssh ubuntu@54.209.119.85 "sed -i 's/web_green/web_blue/' /var/lib/jenkins/workspace/mytodopipeline/nginx/nginx.conf && sudo systemctl restart nginx"
                     '''
                 }
             }
