@@ -73,7 +73,7 @@ EOF
                     sudo sed -i 's/web_green/web_blue/' 
 /var/lib/jenkins/workspace/mytodopipeline/nginx/nginx.conf
                     sudo systemctl restart nginx
-                    EOF
+EOF
                     '''
                 }
             }
