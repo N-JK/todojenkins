@@ -1,5 +1,11 @@
 pipeline {
     agent any
+
+     environment {
+        DJANGO_SETTINGS_MODULE = 'todo_list.settings.settings'
+        PYTHONPATH = "/usr/src/app"
+    }
+
     stages {
         stage('Build') {
             steps {
