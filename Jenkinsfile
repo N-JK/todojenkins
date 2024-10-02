@@ -67,7 +67,7 @@ EOF
             steps {
                 sshagent (credentials: ['my-ec2-key']) {
                     sh '''
-                    ssh ubuntu@54.209.119.85 << 'EOF'
+                    ssh -t ubuntu@54.209.119.85 << 'EOF'
                     sudo chmod 664 /var/lib/jenkins/workspace/mytodopipeline/nginx/nginx.conf
                     sudo chown jenkins:jenkins /var/lib/jenkins/workspace/mytodopipeline/nginx/nginx.conf
                     sed -i 's/web_green/web_blue/' 
