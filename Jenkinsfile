@@ -79,4 +79,11 @@ EOF
             }
         }
     }
+
+    post {
+        always {
+            cleanWs()
+        }
+    }
 }
+
